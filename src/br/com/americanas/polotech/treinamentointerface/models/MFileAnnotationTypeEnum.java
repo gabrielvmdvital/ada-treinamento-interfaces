@@ -1,4 +1,4 @@
-package br.com.americanas.polotech.treinamentointerface.enumns;
+package br.com.americanas.polotech.treinamentointerface.models;
 
 public enum MFileAnnotationTypeEnum {
 
