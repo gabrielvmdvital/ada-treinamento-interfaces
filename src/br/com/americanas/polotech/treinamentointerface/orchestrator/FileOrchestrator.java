@@ -89,14 +89,13 @@ public class FileOrchestrator extends FolderOrchestrator implements ImageFileDat
             case IMPORTANT -> dir = "\\important\\";
             case SIMPLE -> dir = "\\simple\\";
             case IMAGE -> dir = "\\imagens\\";
-
             default -> dir = "";
         }
 
         String path = directory + dir + nameFile + ".txt";
 
         if(new File(directory).exists()) {
-            try(PrintWriter writer = new PrintWriter(new File("/caminho/arquivo.txt"))) {
+            try(PrintWriter writer = new PrintWriter(new File(path))) {
                 writer.println(content);
                 mapListFiles.put(nameFile, content);
                 System.out.println("Texto salvo com sucesso.");
