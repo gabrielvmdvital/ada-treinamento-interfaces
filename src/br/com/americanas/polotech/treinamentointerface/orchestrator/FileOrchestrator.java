@@ -1,5 +1,6 @@
 package br.com.americanas.polotech.treinamentointerface.orchestrator;
 
+import br.com.americanas.polotech.treinamentointerface.models.MFile;
 import br.com.americanas.polotech.treinamentointerface.models.MFileAnnotationTypeEnum;
 import br.com.americanas.polotech.treinamentointerface.interfaces.FileDatabase;
 import br.com.americanas.polotech.treinamentointerface.interfaces.ImageFileDatabase;
@@ -11,6 +12,7 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class FileOrchestrator extends FolderOrchestrator implements ImageFileDatabase, FileDatabase {
@@ -30,6 +32,11 @@ public class FileOrchestrator extends FolderOrchestrator implements ImageFileDat
 
         } catch (Exception e) {
             System.out.println("Erro" + e.getMessage() + "não foi possível salvar a imagem!");
+        }
+    }
+    public void saveAllListOfImageFiles(List<MFile> mFileList){
+        for(MFile file: mFileList){
+            saveImageFile(file.getPath(), file.getContent(), file.getNameFile());
         }
     }
 
@@ -74,7 +81,7 @@ public class FileOrchestrator extends FolderOrchestrator implements ImageFileDat
 
     }
 
-    public void saveFile(String directory, String Content, MFileAnnotationTypeEnum type, String nameFile) {
+    public void saveFile(String directory, String content, MFileAnnotationTypeEnum type, String nameFile) {
 
         String dir = "";
         switch (type){
@@ -89,17 +96,14 @@ public class FileOrchestrator extends FolderOrchestrator implements ImageFileDat
         String path = directory + dir + nameFile + ".txt";
 
         if(new File(directory).exists()) {
-            File file = new File(path);
-            try {
-                if (file.createNewFile()) {
-                    System.out.println("Arquivo criado com sucesso em: " + file.getAbsolutePath());
-                    mapListFiles.put(nameFile, path);
-                } else {
-                    System.out.println("O arquivo já existe em: " + file.getAbsolutePath());
-                }
-            } catch (IOException e){
-                e.printStackTrace();
+            try(PrintWriter writer = new PrintWriter(new File("/caminho/arquivo.txt"))) {
+                writer.println(content);
+                mapListFiles.put(nameFile, content);
+                System.out.println("Texto salvo com sucesso.");
+            } catch (FileNotFoundException e) {
+                System.out.println("Erro ao salvar texto: " + e.getMessage());
             }
+
         }
         else {
             System.out.println("Diretório não existe!");
@@ -107,6 +111,11 @@ public class FileOrchestrator extends FolderOrchestrator implements ImageFileDat
 
     }
 
+    public void saveAllListOfFiles(List<MFile> mFileList){
+        for(MFile file: mFileList){
+            saveFile(file.getPath(), file.getContent(), file.getType(), file.getNameFile());
+        }
+    }
     public void recoveryFile(String directory, String nameFile) {
         String path = directory + nameFile + ".txt";
 
@@ -161,5 +170,6 @@ public class FileOrchestrator extends FolderOrchestrator implements ImageFileDat
             System.out.println("File: " + key);
         });
     }
+
 
 }
