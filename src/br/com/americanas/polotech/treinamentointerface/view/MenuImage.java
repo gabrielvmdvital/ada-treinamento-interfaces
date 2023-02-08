@@ -50,6 +50,8 @@ public class MenuImage {
                 case 2 : {
                     //remover imagem
                     mFile = new MFile();
+                    System.out.println("Informe o diretório da imagem");
+                    directory = sc.nextLine();
                     System.out.println("Digite o nome da imagem que deseja remover");
                     String imgRemoveName = sc.nextLine().trim();
                     mFile.setNameFile(imgRemoveName);

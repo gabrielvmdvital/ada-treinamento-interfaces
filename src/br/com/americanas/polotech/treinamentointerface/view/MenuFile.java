@@ -108,7 +108,7 @@ public class MenuFile {
                     // Listar arquivos
                     System.out.println("Informe o diretório dos arquivos que deseja listar!\n");
                     directory = sc.nextLine();
-                    System.out.println("Listando Todas os Arquivos");
+                    System.out.println("Listando Todas os arquivos");
                     handlerFile.listAllFiles(directory);
                     System.out.println();
                     System.out.println("----------------------------");

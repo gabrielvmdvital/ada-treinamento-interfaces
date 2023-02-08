@@ -30,7 +30,7 @@ public class FileOrchestrator extends FolderOrchestrator implements ImageFileDat
             URL url = new URL(content);
             if(url!=null) {
                 image = ImageIO.read(url);
-                File file = new File(directory + "\\" + nameFile + ".jpg");
+                File file = new File(directory + "\\"+ dir + nameFile + ".jpg");
                 System.out.println("Criou o new File");
                 ImageIO.write(image, "jpg", file);
                 mapListImages.put(nameFile, path);
@@ -72,12 +72,13 @@ public class FileOrchestrator extends FolderOrchestrator implements ImageFileDat
 
     public void removeImageFile(String directory, String nameFile) {
 
-        String path = directory + "//imagens//" + nameFile + ".pgn";
+        String path = directory + "//imagens//" + nameFile + ".jpg";
 
-        File file = new File("/diretorio/imagem.jpg");
+        File file = new File(path);
         if(file.exists()) {
+            boolean result = file.delete();
             mapListImages.remove(nameFile, path);
-            if (file.delete()) {
+            if (result) {
                 System.out.println("O arquivo foi removido com sucesso em: " + file.getAbsolutePath());
             } else {
                 System.out.println("Não foi possível remover o arquivo em: " + file.getAbsolutePath());
@@ -172,17 +173,34 @@ public class FileOrchestrator extends FolderOrchestrator implements ImageFileDat
     }
 
     public void listAllFiles(String directory) {
-
-        mapListFiles.forEach((key, value) -> {
-            System.out.println("File: " + key);
-        });
+        File dir = new File(directory);
+        if (dir.exists() && dir.isDirectory()) {
+            File[] files = dir.listFiles();
+            for (File file : files) {
+                System.out.println(file.getName());
+            }
+        } else {
+            System.out.println("O diretório não existe ou não é um diretório válido.");
+        }
+//        mapListFiles.forEach((key, value) -> {
+//            System.out.println("File: " + key);
+//        });
     }
 
     public void listAllImages(String directory) {
-
-        mapListImages.forEach((key, value) -> {
-            System.out.println("File: " + key);
-        });
+        File dir = new File(directory);
+        if (dir.exists() && dir.isDirectory()) {
+            File[] files = dir.listFiles();
+            for (File file : files) {
+                System.out.println(file.getName());
+            }
+        } else {
+            System.out.println("O diretório não existe ou não é um diretório válido.");
+        }
+//
+//        mapListImages.forEach((key, value) -> {
+//            System.out.println("File: " + key);
+//        });
     }
 
 
