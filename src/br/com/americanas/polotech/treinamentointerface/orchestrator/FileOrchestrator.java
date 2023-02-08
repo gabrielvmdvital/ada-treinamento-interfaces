@@ -49,7 +49,7 @@ public class FileOrchestrator extends FolderOrchestrator implements ImageFileDat
     }
 
     public void recoveryImageFile(String directory, String nameFile) {
-        String path = directory + nameFile + ".png";
+        String path = directory +"\\imagens"+ nameFile + ".png";
 
         if(new File(directory).exists()){
             JFrame frame = new JFrame();
@@ -125,7 +125,7 @@ public class FileOrchestrator extends FolderOrchestrator implements ImageFileDat
         }
     }
     public void recoveryFile(String directory, String nameFile) {
-        String path = directory + nameFile + ".txt";
+        String path = directory +"\\" + nameFile + ".txt";
 
         if(new File(directory).exists()){
             try{

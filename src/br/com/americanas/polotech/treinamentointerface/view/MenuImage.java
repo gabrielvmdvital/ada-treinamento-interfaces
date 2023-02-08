@@ -16,6 +16,7 @@ public class MenuImage {
         Scanner sc = new Scanner(System.in);
         Boolean quitMenuImage = Boolean.FALSE;
         String directory ="";
+        String nameFile;
         List<MFile> listImages;
         do {
             System.out.println("----------------------------");
@@ -23,7 +24,9 @@ public class MenuImage {
             System.out.println("[2]. Remover Imagem");
             System.out.println("[3]. Listar todas Imagens");
             System.out.println("[4]. Salvar várias imagens");
-            System.out.println("[5]. voltar");
+            System.out.println("[5]. Visualizar uma imagem");
+            System.out.println("[6]. voltar");
+
             System.out.println("----------------------------");
             Integer optMenu = Integer.parseInt(sc.nextLine());
             System.out.println("----------------------------");
@@ -91,10 +94,20 @@ public class MenuImage {
                     System.out.println("----------------------------");
                     break;
                 }
+
                 case 5 : {
+                    System.out.println("Informe o diretório: ");
+                    directory = sc.nextLine();
+                    System.out.println("Informe o nome da imagem: ");
+                    nameFile = sc.nextLine();
+                    handlerFile.recoveryImageFile(directory, nameFile);
+                }
+
+                case 6 : {
                     quitMenuImage = Boolean.TRUE;
                     break;
                 }
+
                 default : {
                     System.out.println("Invalid option");
                     break;
