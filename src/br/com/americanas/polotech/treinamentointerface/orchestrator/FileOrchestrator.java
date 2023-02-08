@@ -18,20 +18,28 @@ import java.util.Map;
 public class FileOrchestrator extends FolderOrchestrator implements ImageFileDatabase, FileDatabase {
 
     private Map<String, String> mapListFiles = new HashMap<>();
+    private Map<String, String> mapListImages = new HashMap<>();
 
 
     public void saveImageFile(String directory, String content, String nameFile) {
+
         try {
             String dir = "\\imagens\\";
             BufferedImage image;
-            image = ImageIO.read(new URL(content));
-            String path = directory + dir + nameFile + ".png";
-            ImageIO.write(image, "png", new File(path));
-            System.out.println("Imagem salva com sucesso!");
-            mapListFiles.put(nameFile, path);
-
-        } catch (Exception e) {
-            System.out.println("Erro" + e.getMessage() + "não foi possível salvar a imagem!");
+            String path = directory + dir + nameFile + ".jpg";
+            URL url = new URL(content);
+            if(url!=null) {
+                image = ImageIO.read(url);
+                File file = new File(directory + "\\" + nameFile + ".jpg");
+                System.out.println("Criou o new File");
+                ImageIO.write(image, "jpg", file);
+                mapListImages.put(nameFile, path);
+            }
+            else {
+                System.out.println("URL não encontrada!");
+            }
+        } catch (IOException ex) {
+            System.out.println("Imagem não encontrada");
         }
     }
     public void saveAllListOfImageFiles(List<MFile> mFileList){
@@ -41,7 +49,7 @@ public class FileOrchestrator extends FolderOrchestrator implements ImageFileDat
     }
 
     public void recoveryImageFile(String directory, String nameFile) {
-        String path = directory + nameFile + ".txt";
+        String path = directory + nameFile + ".png";
 
         if(new File(directory).exists()){
             JFrame frame = new JFrame();
@@ -68,7 +76,7 @@ public class FileOrchestrator extends FolderOrchestrator implements ImageFileDat
 
         File file = new File("/diretorio/imagem.jpg");
         if(file.exists()) {
-            mapListFiles.remove(nameFile, path);
+            mapListImages.remove(nameFile, path);
             if (file.delete()) {
                 System.out.println("O arquivo foi removido com sucesso em: " + file.getAbsolutePath());
             } else {
@@ -166,6 +174,13 @@ public class FileOrchestrator extends FolderOrchestrator implements ImageFileDat
     public void listAllFiles(String directory) {
 
         mapListFiles.forEach((key, value) -> {
+            System.out.println("File: " + key);
+        });
+    }
+
+    public void listAllImages(String directory) {
+
+        mapListImages.forEach((key, value) -> {
             System.out.println("File: " + key);
         });
     }

@@ -1,6 +1,7 @@
 package br.com.americanas.polotech.treinamentointerface.orchestrator;
 
 import br.com.americanas.polotech.treinamentointerface.interfaces.FolderManagement;
+import br.com.americanas.polotech.treinamentointerface.models.MFile;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -27,6 +28,11 @@ public class FolderOrchestrator implements FolderManagement {
 
     }
 
+    public void createAFolders(List<String> mListPaths){
+        for(String path: mListPaths){
+            createAFolder(path);
+        }
+    }
     public void removeAFolder(String path) {
         File directory = new File(path);
         if (directory.exists()) {
@@ -53,6 +59,11 @@ public class FolderOrchestrator implements FolderManagement {
         }
 
 
+    }
+    public void removeAllFolders(List<String> mListPaths){
+        for(String path: mListPaths){
+            removeAFolder(path);
+        }
     }
 
     public void listAllFoldersCreated() {
